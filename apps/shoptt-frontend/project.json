@@ -1,0 +1,87 @@
+{
+  "name": "shoptt-frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/shoptt-frontend/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/shoptt-frontend",
+        "index": "apps/shoptt-frontend/src/index.html",
+        "browser": "apps/shoptt-frontend/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/shoptt-frontend/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/shoptt-frontend/public"
+          }
+        ],
+        "styles": ["apps/shoptt-frontend/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/shoptt-frontend/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/shoptt-frontend/src/server.ts"
+        },
+        "outputMode": "server"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "shoptt-frontend:build:production"
+        },
+        "development": {
+          "buildTarget": "shoptt-frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "shoptt-frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "shoptt-frontend:build",
+        "staticFilePath": "dist/apps/shoptt-frontend/browser",
+        "spa": true
+      }
+    }
+  }
+}
