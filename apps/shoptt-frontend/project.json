@@ -26,7 +26,7 @@
         "scripts": [],
         "server": "apps/shoptt-frontend/src/main.server.ts",
         "ssr": {
-          "entry": "apps/shoptt-frontend/src/server.ts"
+          "entry": "apps/shoptt-frontend/server.ts"
         },
         "outputMode": "server"
       },
@@ -44,12 +44,24 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/shoptt-frontend/src/environments/environments.ts",
+              "with": "apps/shoptt-frontend/src/environments/environment.production.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/shoptt-frontend/src/environments/environments.ts",
+              "with": "apps/shoptt-frontend/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
